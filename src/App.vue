@@ -80,11 +80,13 @@
             </div>
         </nav>
     </header>
- <!--================Blog Area =================-->
+
+ <!--================Content Area =================-->
     <div class="container-fluid mt-3 my-5 pt-5">
       <router-view />
     </div>
-    <!--================Blog Area =================-->
+    <!--================Content Area =================-->
+
 </template>
 
 <script>
