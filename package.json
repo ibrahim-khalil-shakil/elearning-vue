@@ -11,7 +11,9 @@
     "core-js": "^3.8.3",
     "vue": "^3.2.36",
     "vue-axios": "^3.5.2",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^4.0.13",
+    "vue-slick-carousel": "^1.0.6",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
@@ -36,7 +38,7 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "vue/multi-word-component-names":"off"
+      "vue/multi-word-component-names": "off"
     }
   },
   "browserslist": [

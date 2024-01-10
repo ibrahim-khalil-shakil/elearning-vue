@@ -1,6 +1,9 @@
 import http from "../http-common";
 
 class DataService {
+  home() {
+    return http.get("/home");
+  }
   event() {
     return http.get("/event");
   }

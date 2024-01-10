@@ -1,10 +1,15 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-const routes =  [
+const routes = [
   {
     path: "/",
     alias: "/home",
     name: "home",
+    component: () => import("./components/Home")
+  },
+  {
+    path: "/event",
+    name: "event",
     component: () => import("./components/Event")
   },
   {

@@ -11,12 +11,79 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description"> -->
-    <link rel="stylesheet" href="<%= BASE_URL %>dist/main.css"/>
-    <link rel="icon" type="image/png" href="<%= BASE_URL %>dist/images/favicon/favicon.png"/>
+    <link rel="stylesheet" href="<%= BASE_URL %>dist/main.css" />
+    <link rel="icon" type="image/png" href="<%= BASE_URL %>dist/images/favicon/favicon.png" />
+    <style>
+        @media (max-width: 767px) {
+            .carousel-inner .carousel-item>div {
+                display: none;
+            }
+    
+            .carousel-inner .carousel-item>div:first-child {
+                display: block;
+            }
+        }
+    
+        .carousel-inner .carousel-item.active,
+        .carousel-inner .carousel-item-next,
+        .carousel-inner .carousel-item-prev {
+            display: flex;
+        }
+    
+        /* medium and up screens */
+        @media (min-width: 768px) {
+    
+            .carousel-inner .carousel-item-end.active,
+            .carousel-inner .carousel-item-next {
+                transform: translateX(25%);
+            }
+    
+            .carousel-inner .carousel-item-start.active,
+            .carousel-inner .carousel-item-prev {
+                transform: translateX(-25%);
+            }
+        }
+    
+        .carousel-inner .carousel-item-end,
+        .carousel-inner .carousel-item-start {
+            transform: translateX(0);
+        }
+    
+        /* Custom CSS for changing carousel indicator color */
+        .carousel-indicators li {
+            background-color: #8F8FA3 !important;
+            margin: 0 5px;
+    
+            height: 8px !important;
+            width: 8px !important;
+            border-radius: 50%;
+        }
+    
+        .carousel-indicators .active {
+            background-color: #202029 !important;
+            border-radius: 50px !important;
+            height: 8px !important;
+            width: 24px !important;
+        }
+    
+        .carousel-indicators {
+            position: static;
+        }
+    
+        .default-categories:hover {
+            background-color: chocolate;
+            border: 1px;
+        }
+    
+        .card {
+            padding: 30px 0;
+        }
+    </style>
 </head>
+
 <body>
- 
-<div id="app"></div>
+
+    <div id="app"></div> 
 
     <!-- Footer Starts Here -->
     <footer class="footer">
@@ -238,6 +305,64 @@
             arrow.classList.toggle("appear");
             dropBox.classList.toggle("appear");
         }
+    </script>
+    <script>
+        
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Display multiple items in the carousel
+                let items = document.querySelectorAll('.carousel .carousel-item');
+                const minPerSlide = 5;
+
+                items.forEach((el, index) => {
+                    let next = el.nextElementSibling;
+
+                    for (let i = 1; i < minPerSlide; i++) {
+                        if (!next) {
+                            // Wrap carousel by using the first child
+                            next = items[0];
+                        }
+                        let cloneChild = next.cloneNode(true);
+                        el.appendChild(cloneChild.children[0]);
+                        next = next.nextElementSibling;
+                    }
+                });
+
+                // Initialize the carousel
+                var carousel = new bootstrap.Carousel(document.getElementById('recipeCarousel'));
+
+
+                // Generate indicators dynamically based on the number of items
+                let indicatorsContainer = document.querySelector('.carousel-indicators');
+                items.forEach((item, index) => {
+                    let indicator = document.createElement('li');
+                    indicator.setAttribute('data-bs-target', '#recipeCarousel');
+                    indicator.setAttribute('data-bs-slide-to', index.toString());
+                    if (index === 0) {
+                        indicator.classList.add('active');
+                    }
+                    indicatorsContainer.appendChild(indicator);
+                });
+
+                // Update indicators on 'slide.bs.carousel' event
+                carousel._element.addEventListener('slide.bs.carousel', function (event) {
+                    // Remove 'active' class from all indicators
+                    document.querySelectorAll('.carousel-indicators li').forEach(function (indicator) {
+                        indicator.classList.remove('active');
+                    });
+
+                    // Add 'active' class to the current indicator
+                    var currentSlide = event.to;
+                    document.querySelector('.carousel-indicators li[data-bs-slide-to="' + currentSlide + '"]').classList.add('active');
+                });
+
+                // Manually control the carousel by clicking on the indicators
+                document.querySelectorAll('.carousel-indicators li').forEach(function (indicator, index) {
+                    indicator.addEventListener('click', function () {
+                        carousel.to(index); // Go to the corresponding slide when an indicator is clicked
+                    });
+                });
+            });
     </script>
 </body>
 

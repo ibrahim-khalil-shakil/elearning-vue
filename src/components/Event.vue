@@ -44,7 +44,7 @@
 import DataService from "../services/DataService";
 //import router from '@/router';
 export default {
-  name: 'Home',
+  name: 'Event',
   data() {
     return {
       events:[]
